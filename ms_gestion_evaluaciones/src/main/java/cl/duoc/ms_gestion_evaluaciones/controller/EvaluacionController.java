@@ -72,4 +72,15 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarEvaluacion(@PathVariable Long id) {
+        try {
+            evaluacionService.eliminarEvaluacion(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (IllegalArgumentException e) {
+            log.warn("Intento de eliminar evaluación inexistente con ID: {}", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
+
