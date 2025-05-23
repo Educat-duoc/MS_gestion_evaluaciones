@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MsGestionEvaluacionesApplication<ms_gestion_evaluaciones>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.duoc.ms_gestion_evaluaciones.MsGestionEvaluacionesApplication",
+            "projectName": "ms_gestion_evaluaciones",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

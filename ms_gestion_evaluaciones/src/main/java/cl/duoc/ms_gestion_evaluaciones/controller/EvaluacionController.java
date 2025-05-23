@@ -29,14 +29,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequiredArgsConstructor
 
 public class EvaluacionController {
-private static final Logger log = LoggerFactory.getLogger(EvaluacionController.class);
+    private static final Logger log = LoggerFactory.getLogger(EvaluacionController.class);
     private final EvaluacionService evaluacionService;
     @GetMapping("/status")
     public String estadoServicio() {
-        return "Microservicio de gestión de evaluaciones activo";
+        String mensaje = "El MS esta activo";
+        return mensaje;
     }
-    @PostMapping
-    public ResponseEntity<Evaluacion> crearEvaluacion(@RequestBody Evaluacion evaluacion) {
+    @PostMapping("actualizarID/{id}")
+    public ResponseEntity<Evaluacion> actualizarEvaluacion(@RequestBody Evaluacion evaluacion) {
         try {
             Evaluacion nueva = evaluacionService.crearEvaluacion(evaluacion);
             return new ResponseEntity<>(nueva, HttpStatus.CREATED);
@@ -51,7 +52,7 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
         return evaluacionService.obtenerTodasLasEvaluaciones();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Evaluacion> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<Evaluacion> obtenerPorId(@PathVariable String id) {
         return evaluacionService.obtenerEvaluacionPorId(id)
                 .map(evaluacion -> {
                     log.info("Evaluación encontrada con ID: {}", id);
@@ -63,7 +64,7 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
                 });
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Evaluacion> actualizarEvaluacion(@PathVariable Long id, @RequestBody Evaluacion evaluacion) {
+    public ResponseEntity<Evaluacion> actualizarEvaluacion(@PathVariable String id, @RequestBody Evaluacion evaluacion) {
         try {
             Evaluacion actualizada = evaluacionService.actualizarEvaluacion(id, evaluacion);
             return new ResponseEntity<>(actualizada, HttpStatus.OK);
@@ -72,8 +73,8 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarEvaluacion(@PathVariable Long id) {
+    @DeleteMapping("eliminarId/{id}")
+    public ResponseEntity<Void> eliminarEvaluacion(@PathVariable String id) {
         try {
             evaluacionService.eliminarEvaluacion(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -20,7 +20,7 @@ public class EvaluacionService {
     private final EvaluacionRepository evaluacionRepository;
 
     @Transactional(readOnly = true)
-    public Optional<Evaluacion> obtenerEvaluacionPorId(Long id) {
+    public Optional<Evaluacion> obtenerEvaluacionPorId(String id) {
         log.info("Buscando evaluación con ID: {}", id);
         return evaluacionRepository.findById(id);
     }
@@ -44,7 +44,7 @@ public class EvaluacionService {
 
     // Actualizar una evaluación existente
     @Transactional
-    public Evaluacion actualizarEvaluacion(Long id, Evaluacion detalles) {
+    public Evaluacion actualizarEvaluacion(String id, Evaluacion detalles) {
         log.info("Actualizando evaluación con ID: {}", id);
         return evaluacionRepository.findById(id)
                 .map(e -> {
@@ -66,7 +66,7 @@ public class EvaluacionService {
 
     // Eliminar una evaluación
     @Transactional
-    public void eliminarEvaluacion(Long id) {
+    public void eliminarEvaluacion(String id) {
         log.info("Eliminando evaluación con ID: {}", id);
         if (!evaluacionRepository.existsById(id)) {
             log.warn("No existe evaluación con ID: {}", id);
