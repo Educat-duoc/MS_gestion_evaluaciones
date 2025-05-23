@@ -12,14 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service // Le dice a Spring que esta clase es un servicio
-@RequiredArgsConstructor // Crea un constructor con el repository
-@Slf4j // Habilita los logs (log.info, log.error, etc.)
+@Service 
+@RequiredArgsConstructor 
+@Slf4j 
 public class EvaluacionService {
 
     private final EvaluacionRepository evaluacionRepository;
 
-    // Obtener una evaluación por su ID
     @Transactional(readOnly = true)
     public Optional<Evaluacion> obtenerEvaluacionPorId(Long id) {
         log.info("Buscando evaluación con ID: {}", id);
