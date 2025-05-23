@@ -62,5 +62,14 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 });
     }
-    
+    @PutMapping("/{id}")
+    public ResponseEntity<Evaluacion> actualizarEvaluacion(@PathVariable Long id, @RequestBody Evaluacion evaluacion) {
+        try {
+            Evaluacion actualizada = evaluacionService.actualizarEvaluacion(id, evaluacion);
+            return new ResponseEntity<>(actualizada, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            log.error("No se pudo actualizar evaluación con ID {}: {}", id, e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
