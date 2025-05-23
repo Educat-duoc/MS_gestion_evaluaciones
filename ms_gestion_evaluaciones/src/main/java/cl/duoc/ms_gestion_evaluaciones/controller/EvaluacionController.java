@@ -31,4 +31,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class EvaluacionController {
 private static final Logger log = LoggerFactory.getLogger(EvaluacionController.class);
     private final EvaluacionService evaluacionService;
+    @GetMapping("/status")
+    public String estadoServicio() {
+        return "Microservicio de gestión de evaluaciones activo";
+    }
 }
