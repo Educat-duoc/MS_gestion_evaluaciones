@@ -50,4 +50,17 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
         log.info("Solicitud para listar todas las evaluaciones");
         return evaluacionService.obtenerTodasLasEvaluaciones();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Evaluacion> obtenerPorId(@PathVariable Long id) {
+        return evaluacionService.obtenerEvaluacionPorId(id)
+                .map(evaluacion -> {
+                    log.info("Evaluación encontrada con ID: {}", id);
+                    return new ResponseEntity<>(evaluacion, HttpStatus.OK);
+                })
+                .orElseGet(() -> {
+                    log.warn("Evaluación no encontrada con ID: {}", id);
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                });
+    }
+    
 }
