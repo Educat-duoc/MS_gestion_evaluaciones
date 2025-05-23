@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EvaluacionRepository extends JpaRepository<Evaluacion, String> {
-    // Puedes agregar métodos personalizados si los necesitas
+   
 }
