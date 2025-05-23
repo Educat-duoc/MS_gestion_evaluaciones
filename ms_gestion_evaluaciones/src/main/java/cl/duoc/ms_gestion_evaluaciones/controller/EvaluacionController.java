@@ -45,4 +45,9 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping
+    public List<Evaluacion> obtenerTodas() {
+        log.info("Solicitud para listar todas las evaluaciones");
+        return evaluacionService.obtenerTodasLasEvaluaciones();
+    }
 }
