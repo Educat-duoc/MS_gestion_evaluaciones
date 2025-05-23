@@ -35,4 +35,14 @@ private static final Logger log = LoggerFactory.getLogger(EvaluacionController.c
     public String estadoServicio() {
         return "Microservicio de gestión de evaluaciones activo";
     }
+    @PostMapping
+    public ResponseEntity<Evaluacion> crearEvaluacion(@RequestBody Evaluacion evaluacion) {
+        try {
+            Evaluacion nueva = evaluacionService.crearEvaluacion(evaluacion);
+            return new ResponseEntity<>(nueva, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            log.error("Error al crear evaluación: {}", e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
