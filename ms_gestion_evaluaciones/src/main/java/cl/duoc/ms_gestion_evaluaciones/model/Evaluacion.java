@@ -25,28 +25,28 @@ public class Evaluacion {
     @Column(name = "NOMBREESTUDIANTE")
     private String nombreEstudiante;
     @Column(name = "TIPO")
-    private String Tipo;
+    private String tipo;
     @Column(name = "SECCION")
-    private String Seccion;
+    private String seccion;
     @Column(name = "MATERIA")
-    private String Materia;
+    private String materia;
     @Column(name = "PERIODO")
-    private String Periodo;
+    private String periodo;
     @Column(name = "ESTADO")
-    private String Estado;
+    private String estado;
     @Column(name = "PUNTAJE")
-    private int Puntaje;
+    private int puntaje;
     @Column(name = "NOTA")
-    private int Nota;
+    private int nota;
 
-    public Evaluacion(String nombreEstudiante, String Tipo, String Seccion, String Materia, String Periodo, String Estado,int Puntaje,int Nota){
+    public Evaluacion(String nombreEstudiante, String tipo, String seccion, String materia, String periodo, String estado,int puntaje,int nota){
         this.nombreEstudiante=nombreEstudiante;
-        this.Tipo=Tipo;
-        this.Seccion=Seccion;
-        this.Materia=Materia;
-        this.Periodo=Periodo;
-        this.Estado=Estado;
-        this.Puntaje=Puntaje;
-        this.Nota=Nota;
+        this.tipo=tipo;
+        this.seccion=seccion;
+        this.materia=materia;
+        this.periodo=periodo;
+        this.estado=estado;
+        this.puntaje=puntaje;
+        this.nota=nota;
     }
 }

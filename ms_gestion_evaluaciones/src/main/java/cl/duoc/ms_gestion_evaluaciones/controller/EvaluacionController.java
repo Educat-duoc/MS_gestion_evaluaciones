@@ -31,27 +31,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class EvaluacionController {
     private static final Logger log = LoggerFactory.getLogger(EvaluacionController.class);
     private final EvaluacionService evaluacionService;
-    @GetMapping("/status")
+    @GetMapping("Evaluacion/status")
     public String estadoServicio() {
         String mensaje = "El MS esta activo";
         return mensaje;
     }
-    @PostMapping("actualizarID/{id}")
-    public ResponseEntity<Evaluacion> actualizarEvaluacion(@RequestBody Evaluacion evaluacion) {
+    
+    @PostMapping("/CrearEvaluacion")
+    public ResponseEntity<Evaluacion> crearEvaluacion(@RequestBody Evaluacion evaluacion) {
         try {
             Evaluacion nueva = evaluacionService.crearEvaluacion(evaluacion);
             return new ResponseEntity<>(nueva, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             log.error("Error al crear evaluación: {}", e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+        }    
     }
     @GetMapping
     public List<Evaluacion> obtenerTodas() {
         log.info("Solicitud para listar todas las evaluaciones");
         return evaluacionService.obtenerTodasLasEvaluaciones();
     }
-    @GetMapping("/{id}")
+    @GetMapping("ObtenerEvaluacion/{id}")
     public ResponseEntity<Evaluacion> obtenerPorId(@PathVariable String id) {
         return evaluacionService.obtenerEvaluacionPorId(id)
                 .map(evaluacion -> {
@@ -63,7 +64,7 @@ public class EvaluacionController {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 });
     }
-    @PutMapping("/{id}")
+    @PutMapping("Actualizar/{id}")
     public ResponseEntity<Evaluacion> actualizarEvaluacion(@PathVariable String id, @RequestBody Evaluacion evaluacion) {
         try {
             Evaluacion actualizada = evaluacionService.actualizarEvaluacion(id, evaluacion);
@@ -83,5 +84,8 @@ public class EvaluacionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+    
 }
 
