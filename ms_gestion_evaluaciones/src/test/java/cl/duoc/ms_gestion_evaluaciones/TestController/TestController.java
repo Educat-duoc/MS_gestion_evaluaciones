@@ -71,6 +71,20 @@ public class TestController {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }
+    
+// Prueba que se puede obtener una evaluación por ID cuando existe
+     @Test
+    void testObtenerPorId_Existe() throws Exception {
+        Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setId("1");
+        evaluacion.setNombreEstudiante("Eval");
+
+        when(evaluacionService.obtenerEvaluacionPorId("1")).thenReturn(Optional.of(evaluacion));
+
+        mockMvc.perform(get("/Evaluacion/ObtenerEvaluacion/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"));
+    }
 
 }
 
