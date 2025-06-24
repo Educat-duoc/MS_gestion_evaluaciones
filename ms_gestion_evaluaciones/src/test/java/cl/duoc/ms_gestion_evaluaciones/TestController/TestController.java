@@ -51,9 +51,27 @@ public class TestController {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(evaluacion)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.nombre").value("Evaluación prueba"));
+                .andExpect(jsonPath("id").value("1"))
+                .andExpect(jsonPath("nombre").value("Evaluación pruebaprueba"));
     }
+    //Prueba se obtienen todas las evaluaciones
+    @Test
+    void testObtenerTodas() throws Exception {
+        Evaluacion e1 = new Evaluacion();
+        e1.setId("1");
+        e1.setNombreEstudiante("Eval 1");
+
+        Evaluacion e2 = new Evaluacion();
+        e2.setId("2");
+        e2.setNombreEstudiante("Eval 2");
+
+        when(evaluacionService.obtenerTodasLasEvaluaciones()).thenReturn(Arrays.asList(e1, e2));
+
+        mockMvc.perform(get("/Evaluacion"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2));
+    }
+
 }
 
 
