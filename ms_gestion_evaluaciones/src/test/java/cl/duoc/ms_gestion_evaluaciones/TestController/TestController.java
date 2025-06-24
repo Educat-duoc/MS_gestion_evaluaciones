@@ -108,7 +108,7 @@ public class TestController {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(evaluacion)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nombre").value("Actualizada"));
+                .andExpect(jsonPath("$.nombreEstudiante").value("Actualizada"));
     }
 
     // Prueba que da error al intentar actualizar una evaluación que no existe
@@ -132,7 +132,7 @@ public class TestController {
         mockMvc.perform(delete("/Evaluacion/eliminarId/1"))
                 .andExpect(status().isNoContent());
     }
-    
+
     // Prueba que da error al intentar eliminar una evaluación que no existe
      @Test
     void testEliminarEvaluacion_NoExiste() throws Exception {
