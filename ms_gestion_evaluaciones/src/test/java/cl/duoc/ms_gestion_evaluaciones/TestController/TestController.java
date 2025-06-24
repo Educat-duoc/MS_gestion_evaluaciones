@@ -133,6 +133,16 @@ public class TestController {
                 .andExpect(status().isNoContent());
     }
     
+    // Prueba que da error al intentar eliminar una evaluación que no existe
+     @Test
+    void testEliminarEvaluacion_NoExiste() throws Exception {
+        doThrow(new IllegalArgumentException("No existe"))
+                .when(evaluacionService).eliminarEvaluacion("99");
+
+        mockMvc.perform(delete("/Evaluacion/eliminarId/99"))
+                .andExpect(status().isNotFound());
+    }
+
 }
 
 
