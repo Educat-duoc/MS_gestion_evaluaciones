@@ -125,6 +125,14 @@ public class TestController {
                         .content(objectMapper.writeValueAsString(evaluacion)))
                 .andExpect(status().isNotFound());
     }
+
+    // Prueba que se elimina una evaluación existente
+    @Test
+    void testEliminarEvaluacion_Existe() throws Exception {
+        mockMvc.perform(delete("/Evaluacion/eliminarId/1"))
+                .andExpect(status().isNoContent());
+    }
+    
 }
 
 
