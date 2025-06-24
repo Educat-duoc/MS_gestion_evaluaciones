@@ -38,4 +38,19 @@ public class TestController {
                 .andExpect(status().isOk())
                 .andExpect(content().string("El MS esta activo"));
     }
-}
+    //test de crear evaluacion
+    @Test
+    void testCrearEvaluacion() throws Exception {
+        Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setId("1");
+        evaluacion.setNombreEstudiante("Evaluación prueba");
+
+        when(evaluacionService.crearEvaluacion(any(Evaluacion.class))).thenReturn(evaluacion);
+
+        mockMvc.perform(post("/Evaluacion/CrearEvaluacion")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(evaluacion)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.nombre").value("Evaluación prueba"));
+    }
