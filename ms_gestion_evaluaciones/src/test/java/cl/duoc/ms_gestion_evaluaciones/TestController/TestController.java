@@ -52,7 +52,7 @@ public class TestController {
                         .content(objectMapper.writeValueAsString(evaluacion)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").value("1"))
-                .andExpect(jsonPath("nombre").value("Evaluación pruebaprueba"));
+                .andExpect(jsonPath("nombreEstudiante").value("Evaluación prueba"));
     }
     //Prueba se obtienen todas las evaluaciones
     @Test
