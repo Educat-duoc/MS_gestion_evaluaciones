@@ -94,6 +94,23 @@ public class TestController {
         mockMvc.perform(get("/Evaluacion/ObtenerEvaluacion/99"))
                 .andExpect(status().isNotFound());
     }
+
+    //Prueba que se actualiza una evaluación existente correctamente
+    @Test
+    void testActualizarEvaluacion_Existe() throws Exception {
+        Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setId("1");
+        evaluacion.setNombreEstudiante("Actualizada");
+
+        when(evaluacionService.actualizarEvaluacion(eq("1"), any(Evaluacion.class))).thenReturn(evaluacion);
+
+        mockMvc.perform(put("/Evaluacion/Actualizar/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(evaluacion)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre").value("Actualizada"));
+    }
+
 }
 
 
