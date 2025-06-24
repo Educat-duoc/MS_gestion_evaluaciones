@@ -111,6 +111,20 @@ public class TestController {
                 .andExpect(jsonPath("$.nombre").value("Actualizada"));
     }
 
+    // Prueba que da error al intentar actualizar una evaluación que no existe
+    @Test
+    void testActualizarEvaluacion_NoExiste() throws Exception {
+        Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setNombreEstudiante("Error");
+
+        when(evaluacionService.actualizarEvaluacion(eq("99"), any(Evaluacion.class)))
+                .thenThrow(new IllegalArgumentException("No se encontró evaluación"));
+
+        mockMvc.perform(put("/Evaluacion/Actualizar/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(evaluacion)))
+                .andExpect(status().isNotFound());
+    }
 }
 
 
