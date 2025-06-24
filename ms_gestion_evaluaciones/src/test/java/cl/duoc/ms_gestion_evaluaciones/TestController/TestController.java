@@ -71,7 +71,7 @@ public class TestController {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }
-    
+
 // Prueba que se puede obtener una evaluación por ID cuando existe
      @Test
     void testObtenerPorId_Existe() throws Exception {
@@ -85,7 +85,15 @@ public class TestController {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"));
     }
+    
+    //Prueba que devuelve error cuando se busca una evaluación que no existe
+     @Test
+    void testObtenerPorId_NoExiste() throws Exception {
+        when(evaluacionService.obtenerEvaluacionPorId("99")).thenReturn(Optional.empty());
 
+        mockMvc.perform(get("/Evaluacion/ObtenerEvaluacion/99"))
+                .andExpect(status().isNotFound());
+    }
 }
 
 
