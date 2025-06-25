@@ -91,8 +91,18 @@ public class TestService {
 
         assertEquals("Nuevo", resultado.getNombreEstudiante());
         verify(evaluacionRepository).save(any(Evaluacion.class));
-
     }
+
+    //
+    @Test
+    void testActualizarEvaluacionNoExiste() {
+        Evaluacion actualizada = new Evaluacion();
+        when(evaluacionRepository.findById("99")).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () ->
+                evaluacionService.actualizarEvaluacion("99", actualizada));
+    }
+
 
 
 
