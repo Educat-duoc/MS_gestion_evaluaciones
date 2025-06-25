@@ -64,5 +64,17 @@ public class TestService {
         verify(evaluacionRepository).findById("1");
     }
 
+    // buscamos una evaluacion que no existe, el sistema no se cae 
+    //responde correctamente indicando que no encontró nada.
+    @Test
+    void testObtenerPorIdNoExiste() {
+        when(evaluacionRepository.findById("99")).thenReturn(Optional.empty());
+
+        Optional<Evaluacion> resultado = evaluacionService.obtenerEvaluacionPorId("99");
+
+        assertFalse(resultado.isPresent());
+    }
+
+
 
 }
