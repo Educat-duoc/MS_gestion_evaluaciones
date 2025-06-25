@@ -49,8 +49,20 @@ public class TestService {
         verify(evaluacionRepository).findAll();
     }
 
+    // test para obtener evaluacion por id si esque existe 
+     @Test
+    void testObtenerPorIdExiste() {
+        Evaluacion evaluacion = new Evaluacion();
+        evaluacion.setId("1");
 
+        when(evaluacionRepository.findById("1")).thenReturn(Optional.of(evaluacion));
 
+        Optional<Evaluacion> resultado = evaluacionService.obtenerEvaluacionPorId("1");
+
+        assertTrue(resultado.isPresent());
+        assertEquals("1", resultado.get().getId());
+        verify(evaluacionRepository).findById("1");
+    }
 
 
 }
