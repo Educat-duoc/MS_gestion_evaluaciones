@@ -21,6 +21,8 @@ public class TestService {
         evaluacionRepository = mock(EvaluacionRepository.class);
         evaluacionService = new EvaluacionService(evaluacionRepository);
     }
+
+    //test crear evaluacion
     @Test
     void testCrearEvaluacion() {
         Evaluacion evaluacion = new Evaluacion();
@@ -33,6 +35,18 @@ public class TestService {
         assertNotNull(resultado);
         assertEquals("Prueba", resultado.getNombreEstudiante());
         verify(evaluacionRepository).save(evaluacion);
+    }
+
+    //test obtener todas las evaluaciones 
+    @Test
+    void testObtenerTodas() {
+        List<Evaluacion> lista = Arrays.asList(new Evaluacion(), new Evaluacion());
+        when(evaluacionRepository.findAll()).thenReturn(lista);
+
+        List<Evaluacion> resultado = evaluacionService.obtenerTodasLasEvaluaciones();
+
+        assertEquals(2, resultado.size());
+        verify(evaluacionRepository).findAll();
     }
 
 
