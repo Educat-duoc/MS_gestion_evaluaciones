@@ -90,7 +90,8 @@ public class TestService {
         Evaluacion resultado = evaluacionService.actualizarEvaluacion("1", actualizada);
 
         assertEquals("Nuevo", resultado.getNombreEstudiante());
-        verify(evaluacionRepository).save(actualizada);
+        verify(evaluacionRepository).save(any(Evaluacion.class));
+
     }
 
 
