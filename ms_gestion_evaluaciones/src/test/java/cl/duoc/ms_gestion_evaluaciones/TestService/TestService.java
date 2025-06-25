@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class TestService {
@@ -74,6 +75,24 @@ public class TestService {
 
         assertFalse(resultado.isPresent());
     }
+    //test para actualizar y guardar cambio de evaluacion
+    @Test
+    void testActualizarEvaluacionExiste() {
+        Evaluacion original = new Evaluacion();
+        original.setId("1");
+
+        Evaluacion actualizada = new Evaluacion();
+        actualizada.setNombreEstudiante("Nuevo");
+
+        when(evaluacionRepository.findById("1")).thenReturn(Optional.of(original));
+        when(evaluacionRepository.save(any(Evaluacion.class))).thenReturn(actualizada);
+
+        Evaluacion resultado = evaluacionService.actualizarEvaluacion("1", actualizada);
+
+        assertEquals("Nuevo", resultado.getNombreEstudiante());
+        verify(evaluacionRepository).save(actualizada);
+    }
+
 
 
 
